@@ -1,0 +1,6 @@
+{
+  "name": "한글 받아쓰기 모험 - 초등 1학년",
+  "description": "초등학교 1학년 수준에 맞춘 스테이지 모험, 몬스터 대결, 콤보, 아이템, 스티커북이 포함된 한글 받아쓰기 게임",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
