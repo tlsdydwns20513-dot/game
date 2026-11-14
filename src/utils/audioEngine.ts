@@ -73,6 +73,12 @@ class AudioEngine {
       this.playTone(n, idx === 3 ? 0.42 : 0.13, 'triangle', idx * 0.11, 0.15);
     });
   }
+
+  playFireworkPop() {
+    const base = 620 + Math.random() * 480;
+    this.playTone(base, 0.08, 'sine', 0, 0.05);
+    this.playTone(base * 1.45, 0.12, 'triangle', 0.03, 0.04);
+  }
 }
 
 export const audioEngine = new AudioEngine();

@@ -26,6 +26,7 @@ import {
 import { STAGES, STICKERS, DictationQuestion, StageConfig } from './data/dictationData';
 import { audioEngine, speakKorean } from './utils/audioEngine';
 import { CompanionHeroSvg, MonsterSvg, StickerBadgeSvg } from './components/GameIllustrations';
+import { FireworksOverlay } from './components/FireworksOverlay';
 
 type Screen = 'MAP' | 'PLAYING' | 'RESULT' | 'STICKERS' | 'REVIEW';
 type InputMode = 'BLOCK' | 'TYPE';
@@ -100,6 +101,7 @@ export default function App() {
   const [save, setSave] = useState<SaveData>(() => loadSaveData());
   const [session, setSession] = useState<SessionState | null>(null);
   const [downloadingHtml, setDownloadingHtml] = useState(false);
+  const [fireworksTrigger, setFireworksTrigger] = useState(0);
 
   const peekTimerRef = useRef<number | null>(null);
   const typeInputRef = useRef<HTMLInputElement | null>(null);
@@ -489,6 +491,10 @@ export default function App() {
 
   return (
     <div className="min-h-screen flex flex-col bg-[#F3F7FC] text-[#0F172A]">
+      <FireworksOverlay
+        active={screen === 'RESULT' && Boolean(session && session.hearts > 0)}
+        burstTrigger={fireworksTrigger}
+      />
       {/* Top Bar Contract: 3 zones */}
       <header className="sticky top-0 z-30 bg-white border-b border-[#DCE6F2]">
         <div className="max-w-[1200px] mx-auto px-6 py-3 flex items-center justify-between gap-8">
@@ -1227,6 +1233,19 @@ export default function App() {
             )}
 
             <div className="flex flex-wrap items-center justify-center gap-3 pt-2">
+              {session.hearts > 0 && (
+                <button
+                  type="button"
+                  onClick={() => {
+                    audioEngine.playPop();
+                    setFireworksTrigger((n) => n + 1);
+                  }}
+                  className="inline-flex items-center gap-1.5 min-h-[46px] px-5 py-2.5 bg-[#FEF3C7] border border-[#FDE68A] rounded-xl font-semibold text-[#92400E] hover:bg-[#FDE68A] cursor-pointer"
+                >
+                  <Sparkles className="w-4 h-4" />
+                  <span>폭죽 다시 터뜨리기</span>
+                </button>
+              )}
               <button
                 type="button"
                 onClick={() => startStage(session.stage.id, session.isReview)}
