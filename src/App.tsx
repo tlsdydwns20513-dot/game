@@ -149,7 +149,7 @@ export default function App() {
     audioEngine.playPop();
     setDownloadingHtml(true);
     try {
-      const res = await fetch('/badasseugi-1st-grade.html');
+      const res = await fetch(`${import.meta.env.BASE_URL}badasseugi-1st-grade.html`);
       const htmlText = await res.text();
       const blob = new Blob([htmlText], { type: 'text/html;charset=utf-8' });
       const url = URL.createObjectURL(blob);

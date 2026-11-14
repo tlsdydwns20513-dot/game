@@ -5,7 +5,7 @@ import {defineConfig} from 'vite';
 
 export default defineConfig(() => {
   return {
-    base: '/game/',
+    base: process.env.GITHUB_ACTIONS ? '/game/' : '/',
     plugins: [react(), tailwindcss()],
     resolve: {
       alias: {
